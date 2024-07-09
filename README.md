@@ -72,11 +72,11 @@ spring:
 private RabbitTemplate rabbitTemplate;
 
 void someMethod() {
-    SimpleResourceHolder.bind(rabbitTemplate.getConnectionFactory(), "connectionNameA");
+    SimpleResourceHolder.push(rabbitTemplate.getConnectionFactory(), "connectionNameA");
     try {
         rabbitTemplate.convertAndSend("someExchange", "someRoutingKey", "someMessage"); // Use RabbitTemplate
     } finally {
-        SimpleResourceHolder.unbind(rabbitTemplate.getConnectionFactory());
+        SimpleResourceHolder.pop(rabbitTemplate.getConnectionFactory());
     }
 }
 ```
